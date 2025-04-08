@@ -17,5 +17,5 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
     envVars:
-      - key: GEMINI_API_KEY
+      - key: AIzaSyC7Ik7lUEFBqpW-3N994jGUBPfk6U79HNw
         sync: false 
