@@ -40,10 +40,10 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="p-6 space-y-6">
+      <div className="space-y-4">
         <div className="space-y-2">
-          <label htmlFor="topic" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="topic" className="block text-sm font-medium">
             Topic
           </label>
           <input
@@ -53,13 +53,13 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
             value={formData.topic}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-primary"
             placeholder="e.g., Gravity"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="subject" className="block text-sm font-medium">
             Subject
           </label>
           <input
@@ -69,13 +69,13 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-primary"
             placeholder="e.g., Physics"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="grade" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="grade" className="block text-sm font-medium">
             Grade Level
           </label>
           <input
@@ -85,13 +85,13 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
             value={formData.grade}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-primary"
             placeholder="e.g., 9th"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="num_questions" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="num_questions" className="block text-sm font-medium">
             Number of Questions
           </label>
           <input
@@ -103,7 +103,7 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
             min="1"
             max="20"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-primary"
           />
         </div>
       </div>
@@ -112,10 +112,8 @@ export function QuizForm({ onSubmit, loading }: QuizFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-2 px-4 rounded-md text-white font-medium ${
-            loading
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700'
+          className={`generate-button w-full py-2 px-4 rounded-md font-medium transition-colors duration-200 ${
+            loading ? 'opacity-50' : ''
           }`}
         >
           {loading ? 'Generating Quiz...' : 'Generate Quiz'}

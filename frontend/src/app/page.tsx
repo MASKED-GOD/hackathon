@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { QuizForm } from '@/components/QuizForm';
-import { QuizDisplay } from '@/components/QuizDisplay';
+import { QuizForm } from '../components/QuizForm';
+import { QuizDisplay } from '../components/QuizDisplay';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000';
 
@@ -44,8 +44,6 @@ export default function Home() {
     setLoading(true);
     setError('');
     try {
-      console.log('Submitting quiz request:', formData);
-      
       const response = await fetch(`${API_URL}/generate-quiz`, {
         method: 'POST',
         headers: {
@@ -57,20 +55,16 @@ export default function Home() {
       });
 
       const data = await response.json();
-      console.log('Response data:', data);
       
       if (!response.ok) {
         throw new Error(data.error || 'Failed to generate quiz');
       }
 
-      // Parse the quiz data string into JSON
       try {
         const parsedQuiz = JSON.parse(data.quiz);
-        console.log('Parsed quiz:', parsedQuiz);
         setQuiz(parsedQuiz);
       } catch (e) {
         console.error('JSON parsing error:', e);
-        console.error('Raw quiz data:', data.quiz);
         throw new Error('Invalid quiz format received from server');
       }
     } catch (err: any) {
@@ -86,26 +80,26 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50">
+    <main className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">AI Quiz Generator</h1>
-        <p className="text-center mb-8 text-gray-600">Generate quizzes using Google's Gemini AI</p>
+        <p className="text-center mb-8 text-foreground/80">Generate quizzes using Google's Gemini AI</p>
         
         {/* Backend status indicator */}
         <div className={`text-center mb-4 ${
-          backendStatus === 'connected' ? 'text-green-600' :
-          backendStatus === 'error' ? 'text-red-600' :
-          'text-yellow-600'
+          backendStatus === 'connected' ? 'status-connected' :
+          backendStatus === 'error' ? 'status-error' :
+          'text-yellow-500'
         }`}>
           {backendStatus === 'connected' && '✓ Connected to backend'}
           {backendStatus === 'error' && '✗ Not connected to backend'}
           {backendStatus === 'checking' && '⟳ Checking backend connection...'}
         </div>
 
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-input-bg rounded-lg shadow-lg overflow-hidden border border-border-color">
           <QuizForm onSubmit={generateQuiz} loading={loading} />
           {error && (
-            <div className="p-4 mx-6 mb-6 text-red-700 bg-red-100 rounded-md">
+            <div className="p-4 mx-6 mb-6 text-error bg-error/10 rounded-md border border-error/20">
               {error}
             </div>
           )}
