@@ -9,7 +9,7 @@ services:
         fromService:
           name: ai-quiz-backend
           type: web
-          property: url
+          property: host
 
   - type: web
     name: ai-quiz-backend
