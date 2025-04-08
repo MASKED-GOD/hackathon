@@ -1,18 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1a1a;
-  --foreground: #ffffff;
-  --input-bg: #2d2d2d;
-  --border-color: #404040;
-  --hover-bg: #3d3d3d;
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --success: #22c55e;
-  --error: #ef4444;
-  --selected-bg: rgba(59, 130, 246, 0.2);
-  --correct-bg: rgba(34, 197, 94, 0.3);
-  --incorrect-bg: rgba(239, 68, 68, 0.3);
+  /* Base colors */
+  --background: #0a0f1c;
+  --foreground: #e5e7eb;
+  --input-bg: #151b2d;
+  --border-color: #1f2b47;
+  --hover-bg: #1a2238;
+  
+  /* Accent colors */
+  --primary: #3b5dc9;
+  --primary-hover: #4b6fe3;
+  --gold: #c6a355;
+  --gold-hover: #d4b165;
+  
+  /* Status colors */
+  --success: #4ade80;
+  --error: #ff6b6b;
+  
+  /* Quiz specific */
+  --selected-bg: rgba(59, 93, 201, 0.2);
+  --correct-bg: rgba(74, 222, 128, 0.15);
+  --incorrect-bg: rgba(255, 107, 107, 0.15);
 }
 
 @theme inline {
@@ -30,9 +39,10 @@
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(135deg, var(--background) 0%, #0d1424 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
 
 /* Form elements */
@@ -40,29 +50,36 @@ input, select, textarea {
   background-color: var(--input-bg);
   border: 1px solid var(--border-color);
   color: var(--foreground);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: var(--primary);
+  border-color: var(--gold);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 2px rgba(198, 163, 85, 0.2);
 }
 
 /* Quiz display */
 .quiz-option {
   background-color: var(--input-bg);
   border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .quiz-option:hover:not(.correct):not(.incorrect) {
-  border-color: var(--primary);
+  border-color: var(--gold);
   background-color: var(--hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .quiz-option.selected {
   background-color: var(--selected-bg);
   border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .quiz-option.correct {
@@ -88,29 +105,58 @@ input:focus, select:focus, textarea:focus {
 
 /* Button styles */
 .generate-button {
-  background-color: var(--primary);
-  color: white;
-  transition: all 0.2s ease;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
+  color: #0a0f1c;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .generate-button:hover:not(:disabled) {
-  background-color: var(--primary-hover);
+  background: linear-gradient(135deg, var(--gold-hover) 0%, var(--gold) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .generate-button:disabled {
-  background-color: var(--border-color);
+  background: var(--border-color);
   cursor: not-allowed;
   opacity: 0.5;
 }
 
 /* Score display */
 .score-display {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 600;
   text-align: center;
-  margin: 1rem 0;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background-color: var(--input-bg);
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, var(--input-bg) 0%, var(--hover-bg) 100%);
+  border: 1px solid var(--gold);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Quiz container styling */
+.quiz-container {
+  background: var(--input-bg);
+  border-radius: 1rem;
   border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Question styling */
+.question-title {
+  color: var(--gold);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
 }
