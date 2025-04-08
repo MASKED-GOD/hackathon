@@ -17,5 +17,6 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
     envVars:
-      - key: AIzaSyC7Ik7lUEFBqpW-3N994jGUBPfk6U79HNw
-        sync: false 
+      - key: GOOGLE_API_KEY
+        value: AIzaSyC7Ik7lUEFBqpW-3N994jGUBPfk6U79HNw
+        sync: false
