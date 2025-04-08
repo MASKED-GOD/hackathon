@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Mentor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <h1>🧠 AI Mentor</h1>
+    <div id="chat-box"></div>
+    <form id="chat-form">
+      <input type="text" id="message" autocomplete="off" placeholder="Ask a question..." required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    const chatForm = document.getElementById("chat-form");
+    const chatBox = document.getElementById("chat-box");
+
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("message");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      appendMessage("You", msg);
+      input.value = "";
+
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg }),
+      });
+      const data = await response.json();
+      appendMessage("AI Mentor", data.response);
+    });
+
+    function appendMessage(sender, text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
