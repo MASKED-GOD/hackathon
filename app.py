@@ -124,6 +124,8 @@ Generate the quiz now, ensuring it's challenging but appropriate for {grade} gra
         return jsonify({"error": f"Failed to generate quiz: {str(e)}"}), 500
 
 if __name__ == "__main__":
+    # Get port from environment variable or default to 5000
+    port = int(os.environ.get('PORT', 5000))
     # Run the app on 0.0.0.0 to make it accessible from other machines
-    print("Starting Flask server...")  # Debug log
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print(f"Starting Flask server on port {port}...")  # Debug log
+    app.run(debug=False, host='0.0.0.0', port=port)
